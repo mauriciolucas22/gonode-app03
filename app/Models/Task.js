@@ -5,7 +5,7 @@ const Model = use('Model')
 // informa as recerencias
 class Task extends Model {
   project () {
-    return this.belongsTo('App/Models/Projects')
+    return this.belongsTo('App/Models/Project')
   }
 
   user () {

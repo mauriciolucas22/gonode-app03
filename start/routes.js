@@ -30,4 +30,5 @@ Route.group(() => {
   // apiOnly exclui os metodos create and edit
   // uma linha para todas as rotas
   Route.resource('projects', 'ProjectController').apiOnly()
+  Route.resource('projects.tasks', 'TaskController').apiOnly()
 }).middleware(['auth'])
