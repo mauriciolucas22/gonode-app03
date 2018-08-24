@@ -4,15 +4,26 @@ const crypto = require('crypto')
 const User = use('App/Models/User')
 
 class ForgotPasswordController {
-  async store ({ request }) {
-    const email = request.input('email') // busca 1 campo
-    const user = await User.findBy('email', email) // busca 1 registro por outra coluna=email
+  async store ({ request, response }) {
+    try {
+      const email = request.input('email') // busca 1 campo
 
-    // token com 10 bytes e converte para hexadecimal
-    user.token = crypto.randomBytes(10).toString('hex')
-    user.token_created_at = new Date()
+      // busca 1 registro por outra coluna=email
+      // ...OrFail: se não encontrar retorna um erro e vai pro catch
+      const user = await User.findByOrFail('email', email)
 
-    await user.save()
+      // token com 10 bytes e converte para hexadecimal
+      user.token = crypto.randomBytes(10).toString('hex')
+      user.token_created_at = new Date()
+
+      await user.save()
+    } catch (err) {
+      return response.status(err.status).send({
+        error: {
+          message: 'Esse email existe ?'
+        }
+      })
+    }
   }
 }
 
