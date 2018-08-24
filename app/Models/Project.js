@@ -9,7 +9,7 @@ class Project extends Model {
   }
 
   tasks () {
-    this.hasMany('App/Models/Task') // pode contar varias tasks reacionadas a ele
+    return this.hasMany('App/Models/Task') // pode contar varias tasks reacionadas a ele
   }
 }
 
