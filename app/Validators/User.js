@@ -11,7 +11,7 @@ class User {
       // validation rules
       username: 'required|unique:users', // obrigatorio|unico:naTabelaUsers
       email: 'required|email|unique:users', // obrigatorio|formatoEmailCom@|unico:naTabelaUsers
-      password: 'required|comfirmed' // obrigatirio|
+      password: 'required|confirmed' // obrigatirio|
     }
   }
 }
