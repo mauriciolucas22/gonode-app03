@@ -1,7 +1,7 @@
 'use strict'
 
 const Env = use('Env') // pega as variaveis de ambiente
-const Youch = use('Youch') // formatador de erros
+const Youch = require('youch') // formatador de erros
 const BaseExceptionHandler = use('BaseExceptionHandler')
 
 /**

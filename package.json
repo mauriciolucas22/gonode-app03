@@ -27,7 +27,8 @@
     "@adonisjs/mail": "^3.0.8",
     "@adonisjs/validator": "^5.0.3",
     "moment": "^2.22.2",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "youch": "^2.0.9"
   },
   "devDependencies": {
     "eslint": "^5.4.0",
