@@ -16,10 +16,10 @@
 const Route = use('Route')
 
 Route.post('users', 'UserController.store').validator('User')
-Route.post('sessions', 'SessionController.store')
+Route.post('sessions', 'SessionController.store').validator('Session')
 
-Route.post('passwords', 'ForgotPasswordController.store')
-Route.put('passwords', 'ForgotPasswordController.update')
+Route.post('passwords', 'ForgotPasswordController.store').validator('ForgotPassword')
+Route.put('passwords', 'ForgotPasswordController.update').validator('ResetPassword')
 
 Route.get('/files/:id', 'FileController.show')
 
@@ -29,6 +29,21 @@ Route.group(() => {
 
   // apiOnly exclui os metodos create and edit
   // uma linha para todas as rotas
-  Route.resource('projects', 'ProjectController').apiOnly()
-  Route.resource('projects.tasks', 'TaskController').apiOnly()
+  Route.resource('projects', 'ProjectController')
+    .apiOnly()
+    .validator(new Map(
+      [
+        [
+          ['projects.store'], // quais metodos queremos validar, qual validator
+          ['Project']
+        ]
+        /**
+         * [ ['projects.outro], ['outroValidator'] ]
+         */
+      ]
+    ))
+
+  Route.resource('projects.tasks', 'TaskController')
+    .apiOnly()
+    .validator(new Map([[['projects.tasks.store'], ['Task']]]))
 }).middleware(['auth'])
