@@ -1,5 +1,7 @@
 'use strict'
 
+const Antl = use('Antl')
+
 class User {
   // todos os campos sejam validados ao mesmo tempo, então todas as mensagens são retornadas quando ouver erro
   get validateAll () {
@@ -13,6 +15,10 @@ class User {
       email: 'required|email|unique:users', // obrigatorio|formatoEmailCom@|unico:naTabelaUsers
       password: 'required|confirmed' // obrigatirio|
     }
+  }
+
+  get messages () {
+    return Antl.list('validation')
   }
 }
 
