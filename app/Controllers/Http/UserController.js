@@ -1,5 +1,6 @@
 'use strict'
 
+const Database = use('Database') // para transactions
 const User = use('App/Models/User')
 
 // ctx = contexto da request => { request, response }
@@ -8,9 +9,12 @@ class UserController {
     const data = request.only(['username', 'email', 'password'])
     const addresses = request.input('addresses')
 
-    const user = await User.create(data)
+    const trx = await Database.beginTransaction()
 
-    await user.addresses().createMany(addresses)
+    const user = await User.create(data, trx)
+    await user.addresses().createMany(addresses, trx)
+
+    await trx.commit() // se nao houver erros efetua um commit => salvar alterações no banco
 
     return user
   }
